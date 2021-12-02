@@ -1,5 +1,6 @@
 import "./styles.css";
 import {useEffect, useState} from 'react'
+import { PetItem } from "../../PetItem";
 
 export const PetsHomePage = () => {
   const [pets, setPets] = useState ([]);
@@ -18,7 +19,7 @@ export const PetsHomePage = () => {
       const formattedData = data.documents.map((item) => {
         return item.fields
       });
-      console.log(formattedData);
+
       setPets(formattedData);
 
     } catch (err){
@@ -29,7 +30,13 @@ export const PetsHomePage = () => {
     <div className="pets-page">
       |<h1 className = 'pets-title'>All Pets</h1>
       |<div className = 'pets-container'>
-        {/* to do*/}
+        {
+          pets.map((pet) => (
+            <PetItem key={pet.id.stringValue} image={pet.image.stringValue} name={pet.name.stringValue} 
+            breed={pet.breed.stringValue} age= {pet.age.stringValue}
+            type={pet.petType.stringValue} id={pet.id.stringValue}></PetItem>
+          ))
+        }
       </div>
     </div>
   );
