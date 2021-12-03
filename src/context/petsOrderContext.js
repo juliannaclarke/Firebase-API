@@ -1,13 +1,20 @@
 import React, {useState} from 'react';
 
 const PetsOrderContext = React.createContext({
+    pets: [],
     order: [],
+    initializePets: () => {},
     addPetToOrder: () => {},
     removePetFromOrder: () => {},
 });
 
 export const PetsOrderContextProvider = (props) => {
     const [order, setOrder] = useState([]);
+    const [pets, setPets] = useState([]);
+
+    const initPets = (petsFromAPI) => {
+        setPets(petsFromAPI);
+    }
 
     const addPetToOrder = (pet) => {
         let newOrder = order; 
@@ -29,7 +36,8 @@ export const PetsOrderContextProvider = (props) => {
     }
     
     return (<PetsOrderContext.Provider
-     value={{order: order, addPetToOrder: addPetToOrder, removePetFromOrder: removePetFromOrder }}
+        value={{order: order, addPetToOrder: addPetToOrder, removePetFromOrder: removePetFromOrder, 
+            pets: pets, initializePets: initPets}}
     >
         {props.children}
     </PetsOrderContext.Provider>)
